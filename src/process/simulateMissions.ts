@@ -43,9 +43,10 @@ const executeMission = (grid: Grid, previouseMissions: Exploration, mission: Rob
 
 export const processMissions = (grid: Grid, missions: RobotMission[]): Robot[] => {
   const completedMissions = missions
-    .reduce((result: Exploration, mission: RobotMission) => executeMission(grid, result, mission),
-    { scents: [], robots: [] }
-  );
+    .reduce(
+      (result: Exploration, mission: RobotMission) => executeMission(grid, result, mission),
+      { scents: [], robots: [] }
+    );
 
   return completedMissions.robots;
 };
