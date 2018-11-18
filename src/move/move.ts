@@ -1,37 +1,73 @@
-import { Instruction, Robot, Direction } from '../navigate/navigate.interfaces';
+import { Instruction, Robot, Direction, Grid } from '../navigate/navigate.interfaces';
 
-const forwardNorth = (robot: Robot) => ({
-  ...robot,
-  yAxis: robot.yAxis + 1,
-});
+const forwardNorth = (grid: Grid, robot: Robot) => {
+  if (robot.yAxis === grid.yAxisBound) {
+    return {
+      ...robot,
+      isLost: true,
+    };
+  }
 
-const forwardSouth = (robot: Robot) => ({
-  ...robot,
-  yAxis: robot.yAxis - 1,
-});
+  return {
+    ...robot,
+    yAxis: robot.yAxis + 1,
+  };
+};
 
-const forwardEast = (robot: Robot) => ({
-  ...robot,
-  xAxis: robot.xAxis + 1,
-});
+const forwardSouth = (grid: Grid, robot: Robot) => {
+  if (robot.yAxis === 0) {
+    return {
+      ...robot,
+      isLost: true,
+    };
+  }
 
-const forwardWest = (robot: Robot) => ({
-  ...robot,
-  xAxis: robot.xAxis - 1,
-});
+  return {
+    ...robot,
+    yAxis: robot.yAxis - 1,
+  };
+};
 
-const forward = (robot: Robot) => {
+const forwardEast = (grid: Grid, robot: Robot) => {
+  if (robot.xAxis === grid.xAxisBound) {
+    return {
+      ...robot,
+      isLost: true,
+    };
+  }
+
+  return {
+    ...robot,
+    xAxis: robot.xAxis + 1,
+  };
+};
+
+const forwardWest = (grid: Grid, robot: Robot) => {
+  if (robot.xAxis === 0) {
+    return {
+      ...robot,
+      isLost: true,
+    };
+  }
+
+  return {
+    ...robot,
+    xAxis: robot.xAxis - 1,
+  };
+};
+
+const forward = (grid: Grid, robot: Robot) => {
   const { direction } = robot;
 
   switch (direction) {
     case Direction.North:
-      return forwardNorth(robot);
+      return forwardNorth(grid, robot);
     case Direction.South:
-      return forwardSouth(robot);
+      return forwardSouth(grid, robot);
     case Direction.East:
-      return forwardEast(robot);
+      return forwardEast(grid, robot);
     case Direction.West:
-      return forwardWest(robot);
+      return forwardWest(grid, robot);
     default:
       return robot;
   }
@@ -84,10 +120,10 @@ const turn = (robot: Robot, turningDirection: Instruction.Left | Instruction.Rig
   }
 };
 
-export const move = (robot: Robot, instruction: Instruction) => {
+export const move = (grid: Grid, robot: Robot, instruction: Instruction) => {
   switch (instruction) {
     case Instruction.Forward:
-      return forward(robot);
+      return forward(grid, robot);
     case Instruction.Left:
     case Instruction.Right:
       return turn(robot, instruction);

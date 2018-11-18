@@ -1,12 +1,14 @@
 import { move } from '../move/move';
 
 // Interfaces
-import { Robot, Instruction } from './navigate.interfaces';
+import { Grid, Robot, Instruction } from './navigate.interfaces';
 
-export const navigate = (robot: Robot, instructions: Instruction[]) => {
+export const navigate = (grid: Grid, robot: Robot, instructions: Instruction[]) => {
   return instructions
     .reduce((currentRobotState: Robot, instruction: Instruction) => {
-      return move(currentRobotState, instruction);
+      if (currentRobotState.isLost) return currentRobotState;
+
+      return move(grid, currentRobotState, instruction);
     }, robot);
 };
 

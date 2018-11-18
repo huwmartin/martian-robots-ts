@@ -4,6 +4,11 @@ import { move } from './move';
 import { Direction, Instruction } from '../navigate/navigate.interfaces';
 
 describe('move', () => {
+  const grid = {
+    xAxisBound: 5,
+    yAxisBound: 3,
+  };
+
   describe('when instruction is Forward', () => {
     it('when direction is North', () => {
       const robot = {
@@ -18,7 +23,7 @@ describe('move', () => {
         direction: Direction.North,
       };
 
-      expect(move(robot, Instruction.Forward)).toEqual(result);
+      expect(move(grid, robot, Instruction.Forward)).toEqual(result);
     });
 
     it('when direction is South', () => {
@@ -34,7 +39,7 @@ describe('move', () => {
         direction: Direction.South,
       };
 
-      expect(move(robot, Instruction.Forward)).toEqual(result);
+      expect(move(grid, robot, Instruction.Forward)).toEqual(result);
     });
 
     it('when direction is East', () => {
@@ -50,7 +55,7 @@ describe('move', () => {
         direction: Direction.East,
       };
 
-      expect(move(robot, Instruction.Forward)).toEqual(result);
+      expect(move(grid, robot, Instruction.Forward)).toEqual(result);
     });
 
     it('when direction is West', () => {
@@ -66,7 +71,75 @@ describe('move', () => {
         direction: Direction.West,
       };
 
-      expect(move(robot, Instruction.Forward)).toEqual(result);
+      expect(move(grid, robot, Instruction.Forward)).toEqual(result);
+    });
+
+    it('when object exits upper x-axis grid bounds', () => {
+      const robot = {
+        xAxis: 5,
+        yAxis: 2,
+        direction: Direction.East,
+      };
+
+      const result = {
+        xAxis: 5,
+        yAxis: 2,
+        direction: Direction.East,
+        isLost: true,
+      };
+
+      expect(move(grid, robot, Instruction.Forward)).toEqual(result);
+    });
+
+    it('when object exits upper y-axis grid bounds', () => {
+      const robot = {
+        xAxis: 2,
+        yAxis: 3,
+        direction: Direction.North,
+      };
+
+      const result = {
+        xAxis: 2,
+        yAxis: 3,
+        direction: Direction.North,
+        isLost: true,
+      };
+
+      expect(move(grid, robot, Instruction.Forward)).toEqual(result);
+    });
+
+    it('when object exits lower x-axis grid bounds', () => {
+      const robot = {
+        xAxis: 0,
+        yAxis: 2,
+        direction: Direction.West,
+      };
+
+      const result = {
+        xAxis: 0,
+        yAxis: 2,
+        direction: Direction.West,
+        isLost: true,
+      };
+
+      expect(move(grid, robot, Instruction.Forward)).toEqual(result);
+    });
+
+    it('when object exits lower y-axis grid bounds', () => {
+      const robot = {
+        xAxis: 2,
+        yAxis: 0,
+        direction: Direction.South,
+      };
+
+      const result = {
+        xAxis: 2,
+        yAxis: 0,
+        direction: Direction.South,
+        isLost: true,
+      };
+
+      expect(move(grid, robot, Instruction.Forward)).toEqual(result);
     });
   });
 
@@ -84,7 +157,7 @@ describe('move', () => {
         direction: Direction.West,
       };
 
-      expect(move(robot, Instruction.Left)).toEqual(result);
+      expect(move(grid, robot, Instruction.Left)).toEqual(result);
     });
 
     it('when direction is South', () => {
@@ -100,7 +173,7 @@ describe('move', () => {
         direction: Direction.East,
       };
 
-      expect(move(robot, Instruction.Left)).toEqual(result);
+      expect(move(grid, robot, Instruction.Left)).toEqual(result);
     });
 
     it('when direction is East', () => {
@@ -116,7 +189,7 @@ describe('move', () => {
         direction: Direction.North,
       };
 
-      expect(move(robot, Instruction.Left)).toEqual(result);
+      expect(move(grid, robot, Instruction.Left)).toEqual(result);
     });
 
     it('when direction is West', () => {
@@ -132,7 +205,7 @@ describe('move', () => {
         direction: Direction.South,
       };
 
-      expect(move(robot, Instruction.Left)).toEqual(result);
+      expect(move(grid, robot, Instruction.Left)).toEqual(result);
     });
   });
 
@@ -150,7 +223,7 @@ describe('move', () => {
         direction: Direction.East,
       };
 
-      expect(move(robot, Instruction.Right)).toEqual(result);
+      expect(move(grid, robot, Instruction.Right)).toEqual(result);
     });
 
     it('when direction is South', () => {
@@ -166,7 +239,7 @@ describe('move', () => {
         direction: Direction.West,
       };
 
-      expect(move(robot, Instruction.Right)).toEqual(result);
+      expect(move(grid, robot, Instruction.Right)).toEqual(result);
     });
 
     it('when direction is East', () => {
@@ -182,7 +255,7 @@ describe('move', () => {
         direction: Direction.South,
       };
 
-      expect(move(robot, Instruction.Right)).toEqual(result);
+      expect(move(grid, robot, Instruction.Right)).toEqual(result);
     });
 
     it('when direction is West', () => {
@@ -198,7 +271,7 @@ describe('move', () => {
         direction: Direction.North,
       };
 
-      expect(move(robot, Instruction.Right)).toEqual(result);
+      expect(move(grid, robot, Instruction.Right)).toEqual(result);
     });
   });
 });

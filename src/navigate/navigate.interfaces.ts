@@ -20,4 +20,5 @@ export interface Robot {
   xAxis: number;
   yAxis: number;
   direction: Direction;
+  isLost?: boolean;
 }
