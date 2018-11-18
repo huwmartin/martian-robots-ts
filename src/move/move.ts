@@ -157,7 +157,7 @@ const turn = (robot: Robot, turningDirection: Instruction.Left | Instruction.Rig
   }
 };
 
-export const move = (grid: Grid, scents: Scent[], robot: Robot, instruction: Instruction) => {
+export const move = (grid: Grid, scents: Scent[], robot: Robot, instruction: Instruction): Robot => {
   switch (instruction) {
     case Instruction.Forward:
       return forward(grid, scents, robot);
