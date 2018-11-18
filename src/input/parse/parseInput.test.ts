@@ -102,4 +102,24 @@ describe('parseInput', () => {
 
     expect(parseMissions(testInput)).toEqual(result);
   });
+
+  it('should surface error if robot input is invalid', () => {
+    const input = [
+      '5 51',
+      '51 1 E',
+      'RFRFRFRF',
+    ];
+
+    expect(() => parseMissions(input)).toThrow();
+  });
+
+  it('should surface error if instructions input is invalid', () => {
+    const input = [
+      '5 51',
+      '51 1 E',
+      'RFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRF',
+    ];
+
+    expect(() => parseMissions(input)).toThrow();
+  });
 });

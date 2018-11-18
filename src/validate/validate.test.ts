@@ -1,4 +1,4 @@
-import { maxValue50, minValue0 } from './validate';
+import { maxValue50, minValue0, maxLength99 } from './validate';
 
 describe('validate', () => {
   describe('maxValue50', () => {
@@ -26,6 +26,26 @@ describe('validate', () => {
       const error = new Error('The minimum value for any coordinate is 0.');
 
       expect(() => minValue0Validator(-1)).toThrowError(error);
+    });
+  });
+
+  describe('maxLength99', () => {
+    const maxLength99Validator = maxLength99('All instruction strings must be less than 100 characters in length.');
+
+    it('should not throw error when both array length is less than 100', () => {
+      const input = 'RFRFRFRFRFRFRFRFRF'
+        .split('');
+
+      expect(() => maxLength99Validator(input)).not.toThrow();
+    });
+
+    it('should throw error when value is greater than 99', () => {
+      const input = 'RFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRFRF'
+        .split('');
+
+      const error = new Error('All instruction strings must be less than 100 characters in length.');
+
+      expect(() => maxLength99Validator(input)).toThrowError(error);
     });
   });
 });

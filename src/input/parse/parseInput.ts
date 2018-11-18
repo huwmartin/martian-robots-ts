@@ -7,7 +7,9 @@ import { mapGridInput, mapMissionInput } from './mapInput';
 // Interfaces
 import { RobotMission } from '../../process/simulateMissions';
 import { Grid } from '../../navigate/navigate.interfaces';
-import { validateGrid } from '../../validate/validate';
+
+// Validators
+import { validateGrid, validateRobot, validateInstructions } from '../../validate/validate';
 
 export const parseGridData = (input: string[]): Grid => {
   const gridInput = input[0].split(' ');
@@ -32,7 +34,12 @@ export const parseMissions = (input: string[]): RobotMission[] => {
       const splitRobotInput = robotInput.split(' ');
       const splitInstructionsInput = instructionsInput.split('');
 
-      return mapMissionInput(splitRobotInput, splitInstructionsInput);
+      const mappedMissionInput = mapMissionInput(splitRobotInput, splitInstructionsInput);
+
+      validateRobot(mappedMissionInput.robot);
+      validateInstructions(mappedMissionInput.instructions);
+
+      return mappedMissionInput;
     });
 };
 
