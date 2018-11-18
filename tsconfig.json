@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "esModuleInterop": true,
+        "target": "es6",
+        "lib": ["es7", "dom"],
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "allowJs": false,
+        "outDir": "dist",
+        "baseUrl": "./",
+        "paths": {
+            "*": [
+                "node_modules/*",
+                "src/types/*"
+            ]
+        },
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedLocals": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+    ]
+}
