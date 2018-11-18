@@ -1,7 +1,7 @@
 import { mapGridInput, mapMissionInput } from './mapInput';
 
 // Interfaces
-import { Direction, Instruction } from '../navigate/navigate.interfaces';
+import { Direction, Instruction } from '../../navigate/navigate.interfaces';
 
 describe('mapInput', () => {
   it('mapGridInput', () => {

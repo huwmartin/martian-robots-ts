@@ -1,7 +1,7 @@
 import { writeOutput } from './writeOutput';
 
 // Interfaces
-import { Direction } from '../navigate/navigate.interfaces';
+import { Direction } from '../../navigate/navigate.interfaces';
 
 jest.mock('fs');
 

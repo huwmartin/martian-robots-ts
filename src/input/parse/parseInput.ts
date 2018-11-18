@@ -5,13 +5,18 @@ import { chunk } from 'lodash';
 import { mapGridInput, mapMissionInput } from './mapInput';
 
 // Interfaces
-import { RobotMission } from '../process/simulateMissions';
-import { Grid } from '../navigate/navigate.interfaces';
+import { RobotMission } from '../../process/simulateMissions';
+import { Grid } from '../../navigate/navigate.interfaces';
+import { validateGrid } from '../../validate/validate';
 
 export const parseGridData = (input: string[]): Grid => {
   const gridInput = input[0].split(' ');
 
-  return mapGridInput(gridInput);
+  const mappedGridInput = mapGridInput(gridInput);
+
+  validateGrid(mappedGridInput);
+
+  return mappedGridInput;
 };
 
 export const parseMissions = (input: string[]): RobotMission[] => {

@@ -1,7 +1,7 @@
 import { mapMissionOutput } from './mapOutput';
 
 // Interfaces
-import { Direction } from '../navigate/navigate.interfaces';
+import { Direction } from '../../navigate/navigate.interfaces';
 
 describe('mapOutput', () => {
   describe('mapMissionOutput', () => {

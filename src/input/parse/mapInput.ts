@@ -1,7 +1,7 @@
 // Interfaces
-import { RobotMission } from '../process/simulateMissions';
-import { Direction } from '../navigate/navigate.interfaces';
-import { Instruction } from '../navigate/navigate.interfaces';
+import { RobotMission } from '../../process/simulateMissions';
+import { Direction } from '../../navigate/navigate.interfaces';
+import { Instruction } from '../../navigate/navigate.interfaces';
 
 export const mapGridInput = (gridInput: string[]) => ({
   xAxisBound: Number(gridInput[0]),

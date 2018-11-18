@@ -1,5 +1,5 @@
 // Interfaces
-import { Robot } from '../navigate/navigate.interfaces';
+import { Robot } from '../../navigate/navigate.interfaces';
 
 const replaceParams = (path: string, map: object) => path && path.replace(/\{\{([a-z\-.0-9]*)\}\}/gi, (match, param) => (map[param] ? map[param] : match));
 

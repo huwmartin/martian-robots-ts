@@ -1,8 +1,8 @@
 import { parseGridData, parseMissions } from './parseInput';
 
 // Interfaces
-import { Instruction } from '../navigate/navigate.interfaces';
-import { Direction } from '../navigate/navigate.interfaces';
+import { Instruction } from '../../navigate/navigate.interfaces';
+import { Direction } from '../../navigate/navigate.interfaces';
 
 const testInput = [
   '5 3',
@@ -22,6 +22,20 @@ describe('parseInput', () => {
     };
 
     expect(parseGridData(testInput)).toEqual(result);
+  });
+
+  it('should surface error if grid dimensions are invalid', () => {
+    const input = [
+      '5 51',
+      '1 1 E',
+      'RFRFRFRF',
+      '3 2 N',
+      'FRRFLLFFRRFLL',
+      '0 3 W',
+      'LLFFFLFLFL'
+    ];
+
+    expect(() => parseGridData(input)).toThrow();
   });
 
   it('should parse missions', () => {

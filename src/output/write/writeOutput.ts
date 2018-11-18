@@ -2,10 +2,10 @@
 import { writeFileSync } from 'fs';
 
 // Utilities
-import { mapMissionOutput } from './mapOutput';
+import { mapMissionOutput } from '../parse/mapOutput';
 
 // Interfaces
-import { Robot } from '../navigate/navigate.interfaces';
+import { Robot } from '../../navigate/navigate.interfaces';
 
 export const writeOutput = (robots: Robot[]) => {
   const output = robots

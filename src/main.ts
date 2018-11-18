@@ -1,7 +1,7 @@
-import { readInput } from './parse/readInput';
-import { parseGridData, parseMissions } from './parse/parseInput';
+import { readInput } from './input/read/readInput';
+import { parseGridData, parseMissions } from './input/parse/parseInput';
 import { processMissions } from './process/simulateMissions';
-import { writeOutput } from './write/writeOutput';
+import { writeOutput } from './output/write/writeOutput';
 
 const main = () => {
   const input = readInput('input.txt');
