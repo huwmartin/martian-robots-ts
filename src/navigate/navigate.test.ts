@@ -4,11 +4,12 @@ import { navigate } from './navigate';
 import { Direction, Instruction } from './navigate.interfaces';
 
 describe('navigate', () => {
+  const grid = {
+    xAxisBound: 5,
+    yAxisBound: 3,
+  };
+
   it('should return new location and direction of object after navigating', () => {
-    const grid = {
-      xAxisBound: 5,
-      yAxisBound: 3,
-    };
     const robot = {
       xAxis: 1,
       yAxis: 1,
@@ -31,14 +32,10 @@ describe('navigate', () => {
       direction: Direction.East
     };
 
-    expect(navigate(grid, robot, instructions)).toEqual(result);
+    expect(navigate(grid, [], robot, instructions)).toEqual(result);
   });
 
   it('should return object with property isLost if it exits grid bounds', () => {
-    const grid = {
-      xAxisBound: 5,
-      yAxisBound: 3,
-    };
     const robot = {
       xAxis: 3,
       yAxis: 2,
@@ -67,6 +64,40 @@ describe('navigate', () => {
       isLost: true,
     };
 
-    expect(navigate(grid, robot, instructions)).toEqual(result);
+    expect(navigate(grid, [], robot, instructions)).toEqual(result);
+  });
+
+  it('should observe previous robot scents', () => {
+    const scents = [
+      {
+        xAxis: 3,
+        yAxis: 3,
+      },
+    ];
+    const robot = {
+      xAxis: 0,
+      yAxis: 3,
+      direction: Direction.West,
+    };
+    const instructions = [
+      Instruction.Left,
+      Instruction.Left,
+      Instruction.Forward,
+      Instruction.Forward,
+      Instruction.Forward,
+      Instruction.Left,
+      Instruction.Forward,
+      Instruction.Left,
+      Instruction.Forward,
+      Instruction.Left,
+    ];
+
+    const result = {
+      xAxis: 2,
+      yAxis: 3,
+      direction: Direction.South,
+    };
+
+    expect(navigate(grid, scents, robot, instructions)).toEqual(result);
   });
 });

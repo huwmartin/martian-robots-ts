@@ -1,4 +1,8 @@
-import { Instruction, Robot, Direction, Grid } from '../navigate/navigate.interfaces';
+// Packages
+import { find, isEqual } from 'lodash';
+
+// Interfaces
+import { Instruction, Robot, Direction, Grid, Scent } from '../navigate/navigate.interfaces';
 
 const incrementY = (robot: Robot) => ({
   ...robot,
@@ -20,8 +24,21 @@ const decrementX = (robot: Robot) => ({
   xAxis: robot.xAxis - 1,
 });
 
-const forwardNorth = (grid: Grid, robot: Robot) => {
+const shouldIgnoreIfScented = (scents: Scent[], robot: Robot) => {
+  const gridPosition = {
+    xAxis: robot.xAxis,
+    yAxis: robot.yAxis,
+  };
+
+  return find(scents, (scent: Scent) => isEqual(scent, gridPosition));
+};
+
+const forwardNorth = (grid: Grid, scents: Scent[], robot: Robot) => {
   if (robot.yAxis === grid.yAxisBound) {
+    const doesPositionHaveScent = shouldIgnoreIfScented(scents, robot);
+
+    if (doesPositionHaveScent) return robot;
+
     return {
       ...robot,
       isLost: true,
@@ -31,8 +48,12 @@ const forwardNorth = (grid: Grid, robot: Robot) => {
   return incrementY(robot);
 };
 
-const forwardSouth = (grid: Grid, robot: Robot) => {
+const forwardSouth = (grid: Grid, scents: Scent[], robot: Robot) => {
   if (robot.yAxis === 0) {
+    const doesPositionHaveScent = shouldIgnoreIfScented(scents, robot);
+
+    if (doesPositionHaveScent) return robot;
+
     return {
       ...robot,
       isLost: true,
@@ -42,8 +63,12 @@ const forwardSouth = (grid: Grid, robot: Robot) => {
   return decrementY(robot);
 };
 
-const forwardEast = (grid: Grid, robot: Robot) => {
+const forwardEast = (grid: Grid, scents: Scent[], robot: Robot) => {
   if (robot.xAxis === grid.xAxisBound) {
+    const doesPositionHaveScent = shouldIgnoreIfScented(scents, robot);
+
+    if (doesPositionHaveScent) return robot;
+
     return {
       ...robot,
       isLost: true,
@@ -53,8 +78,12 @@ const forwardEast = (grid: Grid, robot: Robot) => {
   return incrementX(robot);
 };
 
-const forwardWest = (grid: Grid, robot: Robot) => {
+const forwardWest = (grid: Grid, scents: Scent[], robot: Robot) => {
   if (robot.xAxis === 0) {
+    const doesPositionHaveScent = shouldIgnoreIfScented(scents, robot);
+
+    if (doesPositionHaveScent) return robot;
+
     return {
       ...robot,
       isLost: true,
@@ -64,18 +93,18 @@ const forwardWest = (grid: Grid, robot: Robot) => {
   return decrementX(robot);
 };
 
-const forward = (grid: Grid, robot: Robot) => {
+const forward = (grid: Grid, scents: Scent[], robot: Robot) => {
   const { direction } = robot;
 
   switch (direction) {
     case Direction.North:
-      return forwardNorth(grid, robot);
+      return forwardNorth(grid, scents, robot);
     case Direction.South:
-      return forwardSouth(grid, robot);
+      return forwardSouth(grid, scents, robot);
     case Direction.East:
-      return forwardEast(grid, robot);
+      return forwardEast(grid, scents, robot);
     case Direction.West:
-      return forwardWest(grid, robot);
+      return forwardWest(grid, scents, robot);
     default:
       return robot;
   }
@@ -128,10 +157,10 @@ const turn = (robot: Robot, turningDirection: Instruction.Left | Instruction.Rig
   }
 };
 
-export const move = (grid: Grid, robot: Robot, instruction: Instruction) => {
+export const move = (grid: Grid, scents: Scent[], robot: Robot, instruction: Instruction) => {
   switch (instruction) {
     case Instruction.Forward:
-      return forward(grid, robot);
+      return forward(grid, scents, robot);
     case Instruction.Left:
     case Instruction.Right:
       return turn(robot, instruction);

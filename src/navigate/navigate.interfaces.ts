@@ -22,3 +22,8 @@ export interface Robot {
   direction: Direction;
   isLost?: boolean;
 }
+
+export interface Scent {
+  xAxis: number;
+  yAxis: number;
+}
