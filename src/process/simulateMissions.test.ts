@@ -1,5 +1,7 @@
-import { Direction, Instruction } from '../navigate/navigate.interfaces';
 import { processMissions } from './simulateMissions';
+
+// Interfaces
+import { Direction, Instruction } from '../navigate/navigate.interfaces';
 
 describe('simulateMissions', () => {
   const grid = {
