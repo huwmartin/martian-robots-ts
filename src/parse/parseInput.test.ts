@@ -4,34 +4,24 @@ import { parseGridData, parseMissions } from './parseInput';
 import { Instruction } from '../navigate/navigate.interfaces';
 import { Direction } from '../navigate/navigate.interfaces';
 
-jest.mock('fs');
-
-const testInput =
-`5 3
-1 1 E
-RFRFRFRF
-3 2 N
-FRRFLLFFRRFLL
-0 3 W
-LLFFFLFLFL`;
+const testInput = [
+  '5 3',
+  '1 1 E',
+  'RFRFRFRF',
+  '3 2 N',
+  'FRRFLLFFRRFLL',
+  '0 3 W',
+  'LLFFFLFLFL'
+];
 
 describe('parseInput', () => {
-  const MOCK_FILE_INFO = {
-    'input.txt': testInput,
-  };
-
-  beforeEach(() => {
-    // Set up some mocked out file info before each test
-    require('fs').__setMockFiles(MOCK_FILE_INFO);
-  });
-
   it('should parse grid dimensions', () => {
     const result = {
       xAxisBound: 5,
       yAxisBound: 3,
     };
 
-    expect(parseGridData('input.txt')).toEqual(result);
+    expect(parseGridData(testInput)).toEqual(result);
   });
 
   it('should parse missions', () => {
@@ -96,6 +86,6 @@ describe('parseInput', () => {
       },
     ];
 
-    expect(parseMissions('input.txt')).toEqual(result);
+    expect(parseMissions(testInput)).toEqual(result);
   });
 });

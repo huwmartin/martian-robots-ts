@@ -1,6 +1,5 @@
 // Packages
 import { chunk } from 'lodash';
-import { readFileSync, PathLike } from 'fs';
 
 // Utilities
 import { mapGridInput, mapMissionInput } from './mapInput';
@@ -9,16 +8,14 @@ import { mapGridInput, mapMissionInput } from './mapInput';
 import { RobotMission } from '../process/simulateMissions';
 import { Grid } from '../navigate/navigate.interfaces';
 
-const parseInput = (path: PathLike) => readFileSync(path, 'utf8').split('\n');
-
-export const parseGridData = (path: PathLike): Grid => {
-  const gridInput = parseInput(path)[0].split(' ');
+export const parseGridData = (input: string[]): Grid => {
+  const gridInput = input[0].split(' ');
 
   return mapGridInput(gridInput);
 };
 
-export const parseMissions = (path: PathLike): RobotMission[] => {
-  const [, ...missionInputs] = parseInput(path);
+export const parseMissions = (input: string[]): RobotMission[] => {
+  const [, ...missionInputs] = input;
 
   // chunk the array of mission inputs into smaller arrays of two
   const chunkedMissionInputs = chunk(missionInputs, 2);
@@ -32,4 +29,9 @@ export const parseMissions = (path: PathLike): RobotMission[] => {
 
       return mapMissionInput(splitRobotInput, splitInstructionsInput);
     });
+};
+
+export default {
+  parseGridData,
+  parseMissions,
 };
