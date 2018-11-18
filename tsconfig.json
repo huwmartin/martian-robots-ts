@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "module": "esnext",
+        "module": "commonjs",
         "esModuleInterop": true,
-        "target": "es6",
+        "target": "es5",
         "lib": ["es7", "dom"],
         "moduleResolution": "node",
         "sourceMap": true,
@@ -20,10 +20,12 @@
         "noImplicitAny": true,
         "strictNullChecks": true,
         "suppressImplicitAnyIndexErrors": true,
-        "noUnusedLocals": true
+        "noUnusedLocals": true,
+        "allowSyntheticDefaultImports": true
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
+        "src/*"
     ],
     "exclude": [
         "node_modules",
