@@ -1,5 +1,25 @@
 import { Instruction, Robot, Direction, Grid } from '../navigate/navigate.interfaces';
 
+const incrementY = (robot: Robot) => ({
+  ...robot,
+  yAxis: robot.yAxis + 1,
+});
+
+const decrementY = (robot: Robot) => ({
+  ...robot,
+  yAxis: robot.yAxis - 1,
+});
+
+const incrementX = (robot: Robot) => ({
+  ...robot,
+  xAxis: robot.xAxis + 1,
+});
+
+const decrementX = (robot: Robot) => ({
+  ...robot,
+  xAxis: robot.xAxis - 1,
+});
+
 const forwardNorth = (grid: Grid, robot: Robot) => {
   if (robot.yAxis === grid.yAxisBound) {
     return {
@@ -8,10 +28,7 @@ const forwardNorth = (grid: Grid, robot: Robot) => {
     };
   }
 
-  return {
-    ...robot,
-    yAxis: robot.yAxis + 1,
-  };
+  return incrementY(robot);
 };
 
 const forwardSouth = (grid: Grid, robot: Robot) => {
@@ -22,10 +39,7 @@ const forwardSouth = (grid: Grid, robot: Robot) => {
     };
   }
 
-  return {
-    ...robot,
-    yAxis: robot.yAxis - 1,
-  };
+  return decrementY(robot);
 };
 
 const forwardEast = (grid: Grid, robot: Robot) => {
@@ -36,10 +50,7 @@ const forwardEast = (grid: Grid, robot: Robot) => {
     };
   }
 
-  return {
-    ...robot,
-    xAxis: robot.xAxis + 1,
-  };
+  return incrementX(robot);
 };
 
 const forwardWest = (grid: Grid, robot: Robot) => {
@@ -50,10 +61,7 @@ const forwardWest = (grid: Grid, robot: Robot) => {
     };
   }
 
-  return {
-    ...robot,
-    xAxis: robot.xAxis - 1,
-  };
+  return decrementX(robot);
 };
 
 const forward = (grid: Grid, robot: Robot) => {
@@ -130,4 +138,8 @@ export const move = (grid: Grid, robot: Robot, instruction: Instruction) => {
     default:
       return robot;
   }
+};
+
+export default {
+  move,
 };
